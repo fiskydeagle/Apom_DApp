@@ -3,6 +3,7 @@ import { Wallet, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import ThemeToggle from "@/components/ui/theme-toggle.tsx";
 
 
 const Header = () => {
@@ -74,6 +75,7 @@ const Header = () => {
           >
             Governance
           </Link>
+
         </nav>
 
         {/* Connect Wallet Button */}
@@ -82,6 +84,8 @@ const Header = () => {
             <Wallet className="w-4 h-4" />
             Connect Wallet
           </Button>
+
+          <ThemeToggle />
 
           {/* Mobile Menu Button */}
           <Button
