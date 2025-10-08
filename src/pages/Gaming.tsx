@@ -14,6 +14,10 @@ import {
   Zap
 } from "lucide-react";
 
+import React, { useEffect, useState } from "react";
+import Spinner from "@/components/ui/spinner.tsx";
+
+
 const gamingData = [
   {
     id: 1,
@@ -54,6 +58,20 @@ const gamingData = [
 ];
 
 const Gaming = () => {
+  const [games, setGames] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("http://localhost:3001/api/gaming/games");
+      const data = await response.json();
+      setGames(data.data || []);
+      setLoading(false);
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-screen relative z-10">
       <Header />
@@ -88,42 +106,50 @@ const Gaming = () => {
         <section className="py-16 max-sm:py-8 px-4">
           <div className="container mx-auto max-sm:px-0">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Featured Games</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {gamingData.map((game) => (
-                <Card key={game.id} className="gradient-card border-border/50 hover:shadow-gaming transition-smooth">
-                  <CardHeader>
-                    <div className="text-4xl mb-2">{game.image}</div>
-                    <CardTitle className="text-lg">{game.title}</CardTitle>
-                    <CardDescription>{game.genre}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Players:</span>
-                        <span className="text-gaming">{game.players}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Rewards:</span>
-                        <span className="text-accent">{game.rewards}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Status:</span>
-                        <span className={game.status === "Live" ? "text-accent" : "text-muted-foreground"}>
+            {loading
+                ? <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Spinner size={28} />
+                  <span className="ml-3">Loading games...</span>
+                </div>
+                :<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                  {games.map((game) => (
+                      <Card key={game.id} className="gradient-card border-border/50 hover:shadow-gaming transition-smooth">
+                        <CardHeader>
+                          <div className="text-4xl mb-2">
+                            <img src={game.image} />
+                          </div>
+                          <CardTitle className="text-lg">{game.title}</CardTitle>
+                          <CardDescription>{game.genre}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span>Players:</span>
+                              <span className="text-gaming">{game.players}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Rewards:</span>
+                              <span className="text-accent text-right">Daily: {game.rewards.daily} <br/> Monthly: {game.rewards.monthly} <br/>Weekly: {game.rewards.weekly}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Status:</span>
+                              <span className={game.status === "Live" ? "text-accent" : "text-muted-foreground"}>
                           {game.status}
                         </span>
-                      </div>
-                    </div>
-                    <Button 
-                      variant={game.status === "Live" ? "gaming" : "secondary"} 
-                      className="w-full mt-4"
-                      disabled={game.status !== "Live"}
-                    >
-                      {game.status === "Live" ? "Play Now" : "Coming Soon"}
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                            </div>
+                          </div>
+                          <Button
+                              variant={game.status === "Live" ? "gaming" : "secondary"}
+                              className="w-full mt-4"
+                              disabled={game.status !== "Live"}
+                          >
+                            {game.status === "Live" ? "Play Now" : "Coming Soon"}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                  ))}
+                </div>
+            }
           </div>
         </section>
 
