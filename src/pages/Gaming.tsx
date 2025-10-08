@@ -59,15 +59,15 @@ const Gaming = () => {
       <Header />
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-20 px-4 animated-bg">
-          <div className="container mx-auto text-center">
+        <section className="py-20 max-sm:py-10 px-4 animated-bg">
+          <div className="container mx-auto max-sm:px-0 text-center">
             <div className="max-w-3xl mx-auto">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6">
                 <span className="gradient-gaming bg-clip-text text-transparent">
                   Gaming Hub
                 </span>
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-xl text-muted-foreground mb-6 sm:mb-8">
                 Play to earn, own your assets, and compete in the ultimate blockchain gaming ecosystem
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -85,10 +85,10 @@ const Gaming = () => {
         </section>
 
         {/* Featured Games */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Featured Games</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="py-16 max-sm:py-8 px-4">
+          <div className="container mx-auto max-sm:px-0">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Featured Games</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {gamingData.map((game) => (
                 <Card key={game.id} className="gradient-card border-border/50 hover:shadow-gaming transition-smooth">
                   <CardHeader>
@@ -128,10 +128,10 @@ const Gaming = () => {
         </section>
 
         {/* Gaming Features */}
-        <section className="py-16 px-4 bg-secondary/20">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Gaming Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section className="py-16 max-sm:py-8 px-4 bg-secondary/20">
+          <div className="container mx-auto max-sm:px-0">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Gaming Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 gradient-gaming rounded-full flex items-center justify-center mx-auto mb-4">
                   <Coins className="w-8 h-8 text-white" />
